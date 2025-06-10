@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ – MediPredict</title>
+    <script>
+        const username = sessionStorage.getItem("loggedInUser");
+        if (!username || username === "null") {
+            sessionStorage.setItem("redirectMessage", "Please login to continue.");
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            sessionStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('istockphoto-1073154998-612x612.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background-color: #ffffffcc;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo a {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo a span:first-child {
+            color: #222;
+        }
+
+        .logo a span:last-child {
+            color: #008000;
+        }
+
+        .nav-buttons a,
+        .nav-buttons button {
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+            margin-left: 15px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .blue-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .blue-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .red-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .red-btn:hover {
+            background-color: #b52a36;
+            transform: scale(1.05);
+        }
+
+        .green-btn {
+            background-color: #28850f;
+            color: white;
+        }
+
+        .green-btn:hover {
+            background-color: #205f0b;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 14px;
+            max-width: 900px;
+            margin: 60px auto;
+            box-sizing: border-box;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.03);
+        }
+
+        .symptom-input-box {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .char-counter {
+            position: absolute;
+            right: 10px;
+            bottom: 120px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .suggestion-item:hover {
+            background: #f0f0f0;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .share-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .share-btn.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .share-btn.email {
+            background: #007bff;
+            color: white;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-appointment-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .book-appointment-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .department-match {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .department-match h4 {
+            color: #1976d2;
+            margin: 0 0 10px 0;
+        }
+
+        .department-match p {
+            margin: 0;
+            color: #333;
+        }
+
+        .symptom-input-box h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .symptom-input-box textarea {
+            width: 100%;
+            height: 140px;
+            resize: none;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background: #fdfdfd;
+            transition: border-color 0.3s ease;
+        }
+
+        .symptom-input-box textarea:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+        }
+
+        .symptom-input-box textarea.error {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .symptom-input-box button {
+            padding: 10px 18px;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .symptom-input-box button:hover {
+            background-color: #218838;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 32px;
+            color: #ffffff;
+            margin-top: 60px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .faq-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .faq-bubble {
+            width: 280px;
+            margin: 15px;
+            padding: 20px;
+            background-color: #ffffffdd;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .faq-bubble:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 12px;
+            font-size: 15px;
+            color: #555;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-bubble.open .faq-answer {
+            display: block;
+        }
+
+        /* Loader & Modal */
+        #loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 50px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        #loading::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 15px auto 0;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #28a745;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #predictionModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        #predictionModal .modal-content {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: left;
+            width: 90%;
+            height: 90%;
+            max-width: 800px;
+            max-height: 600px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #predictionModal .modal-content h3 {
+            color: #28a745;
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+
+        #predictionModal .modal-content p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        #predictionModal .modal-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        #predictionModal .modal-content li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        #predictionModal .modal-content button {
+            margin-top: 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        #predictionModal .modal-content button:hover {
+            background: #218838;
+        }
+
+        .prediction-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .prediction-section.warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .prediction-section.info {
+            background: #cce5ff;
+            border-left: 4px solid #007bff;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        .drawer-menu {
+            display: none;
+            flex-direction: column;
+            background-color: #ffffffee;
+            padding: 10px;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            z-index: 1100;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Drawer container */
+        .drawer {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            /* Initially hidden */
+            height: 100%;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.3s;
+            z-index: 1001;
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center buttons horizontally */
+        }
+
+        /* Style for the buttons inside the drawer */
+        .drawer-menu a,
+        .drawer-menu button {
+            width: 90%;
+            padding: 16px;
+            border: none;
+            border-bottom: 1px solid #444;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-align: center;
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .drawer-menu a,
+        .drawer-menu button {
+            margin: 8px 0;
+            width: 90%;
+            width: 100%;
+            display: flex;
+            padding: 16px;
+            border: none;
+            border-bottom: 1px solid #444;
+            /* Adds a separator between buttons */
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            text-align: center;
+
+        }
+
+        /* Styling for different button types */
+        .drawer-menu .blue-btn {
+            background-color: #007bff;
+        }
+
+        .drawer-menu .blue-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .drawer-menu .red-btn {
+            background-color: #dc3545;
+        }
+
+        .drawer-menu .red-btn:hover {
+            background-color: #b52a36;
+            transform: scale(1.05);
+        }
+
+        .drawer-menu .green-btn {
+            background-color: #28850f;
+        }
+
+        .drawer-menu .green-btn:hover {
+            background-color: #205f0b;
+            transform: scale(1.05);
+        }
+
+        /* Open button (for drawer toggle) */
+        .drawer-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002;
+            color: white;
+        }
+
+        /* Optional: Style for the close button */
+        .drawer-close-btn {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons.desktop-only {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<script>
+    function toggleDrawer() {
+        const drawer = document.getElementById("drawerMenu");
+        drawer.style.display = drawer.style.display === "flex" ? "none" : "flex";
+    }
+
+    window.addEventListener("click", function (event) {
+        const drawer = document.getElementById("drawerMenu");
+        const isClickInsideDrawer = drawer.contains(event.target);
+        const isHamburger = event.target.closest(".hamburger");
+
+        if (!isClickInsideDrawer && !isHamburger) {
+            drawer.style.display = "none";
+        }
+
+        const modal = document.getElementById("predictionModal");
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+</script>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><span>Medi</span><span>Plus</span></a>
+        </div>
+        <!-- Mobile Hamburger Icon -->
+        <div class="hamburger" onclick="toggleDrawer()">☰</div>
+
+        <!-- Desktop Buttons -->
+        <div class="nav-buttons desktop-only">
+            <a href="index.html" class="blue-btn">Back to Homepage</a>
+            <a href="appointment.html" class="green-btn">Book Appointment</a>
+            <button onclick="logout()" class="red-btn">Logout</button>
+        </div>
+
+        <!-- Drawer Menu for Mobile -->
+        <div class="drawer-menu" id="drawerMenu">
+            <a href="index.html" class="blue-btn">Back to Homepage</a>
+            <a href="appointment.html" class="green-btn">Book Appointment</a>
+            <button onclick="logout()" class="red-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-image">
+            <img src="new_hero.png" alt="Doctor" />
+        </div>
+        <div class="symptom-input-box">
+            <h2>MediPredict: Disease Prediction Service</h2>
+            <textarea id="symptoms"
+                placeholder="Enter symptoms, separated by commas...&#10;e.g. headache, nausea, fever"
+                oninput="updateCharCount()"></textarea>
+            <div class="char-counter">0/500 characters</div>
+            <div class="suggestions-box" id="suggestionsBox"></div>
+            <div class="error-message" id="symptomsError"></div>
+            <button onclick="submitSymptoms()">Predict Disease</button>
+        </div>
+    </section>
+
+    <div class="faq-title">Frequently Asked Questions</div>
+    <div class="faq-section">
+        <div class="faq-bubble" onclick="toggleAnswer(0)">
+            <strong>What is MediPredict?</strong>
+            <div class="faq-answer" id="answer-0">It is an AI-powered system that Predicts Diseases based on Symptoms.
+            </div>
+        </div>
+        <div class="faq-bubble" onclick="toggleAnswer(1)">
+            <strong>Is this Service free?</strong>
+            <div class="faq-answer" id="answer-1">Yes, it's completely free for Users.</div>
+        </div>
+        <div class="faq-bubble" onclick="toggleAnswer(2)">
+            <strong>Is my Data Safe and Secure?</strong>
+            <div class="faq-answer" id="answer-2">Yes. We do not store your Symptom Data Permanently.</div>
+        </div>
+        <div class="faq-bubble" onclick="toggleAnswer(3)">
+            <strong>How accurate is the Prediction?</strong>
+            <div class="faq-answer" id="answer-3">It provides probable outcomes based on AI models, but always consult a
+                real Doctor.</div>
+        </div>
+        <div class="faq-bubble" onclick="toggleAnswer(4)">
+            <strong>Can I contact a Doctor?</strong>
+            <div class="faq-answer" id="answer-4">Yes, use the "Book Appointment" option to connect with available
+                professionals.</div>
+        </div>
+        <div class="faq-bubble" onclick="toggleAnswer(5)">
+            <strong>What should I do if symptoms persist?</strong>
+            <div class="faq-answer" id="answer-5">Visit a doctor physically or follow up using the patient portal for
+                professional help.</div>
+        </div>
+    </div>
+
+    <div id="loading">Predicting... Please wait</div>
+
+    <div id="predictionModal">
+        <div class="modal-content">
+            <div id="predictionText">...</div>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const commonSymptoms = [
+            "headache", "fever", "cough", "fatigue", "nausea", "dizziness",
+            "chest pain", "shortness of breath", "joint pain", "rash",
+            "abdominal pain", "vomiting", "diarrhea", "muscle pain",
+            "sore throat", "runny nose", "congestion", "loss of appetite",
+            "insomnia", "anxiety", "depression", "back pain", "neck pain",
+            "eye pain", "ear pain", "swelling", "numbness", "tingling"
+        ];
+
+        function updateCharCount() {
+            const textarea = document.getElementById('symptoms');
+            const counter = document.querySelector('.char-counter');
+            const count = textarea.value.length;
+            counter.textContent = `${count}/500 characters`;
+
+            // Show suggestions when user types
+            if (count > 2) {
+                showSuggestions(textarea.value);
+            } else {
+                document.getElementById('suggestionsBox').style.display = 'none';
+            }
+        }
+
+        function showSuggestions(input) {
+            const suggestionsBox = document.getElementById('suggestionsBox');
+            const filteredSymptoms = commonSymptoms.filter(symptom =>
+                symptom.toLowerCase().includes(input.toLowerCase())
+            );
+
+            if (filteredSymptoms.length > 0) {
+                suggestionsBox.innerHTML = filteredSymptoms
+                    .map(symptom => `<div class="suggestion-item" onclick="addSuggestion('${symptom}')">${symptom}</div>`)
+                    .join('');
+                suggestionsBox.style.display = 'block';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        }
+
+        function addSuggestion(symptom) {
+            const textarea = document.getElementById('symptoms');
+            const currentText = textarea.value.trim();
+            const newText = currentText ? `${currentText}, ${symptom}` : symptom;
+            textarea.value = newText;
+            document.getElementById('suggestionsBox').style.display = 'none';
+            updateCharCount();
+        }
+
+        function findMatchingDepartment(disease) {
+            const departmentKeywords = {
+                'Cardiology': ['heart', 'cardiac', 'chest pain', 'hypertension', 'blood pressure', 'palpitation'],
+                'Neurology': ['headache', 'migraine', 'seizure', 'stroke', 'nervous', 'brain', 'memory'],
+                'Orthopedics': ['bone', 'joint', 'spine', 'fracture', 'arthritis', 'muscle', 'back pain'],
+                'Pediatrics': ['child', 'infant', 'baby', 'growth', 'development', 'vaccination'],
+                'Dermatology': ['skin', 'rash', 'acne', 'hair', 'nail', 'allergy', 'itching'],
+                'General Medicine': ['fever', 'cold', 'flu', 'infection', 'fatigue', 'general', 'common', 'viral', 'bacterial', 'diabetes', 'thyroid', 'hypertension', 'cholesterol', 'obesity', 'weight', 'diet', 'nutrition', 'immunity', 'vaccination', 'preventive', 'checkup', 'screening']
+            };
+
+            const diseaseLower = disease.toLowerCase();
+            for (const [department, keywords] of Object.entries(departmentKeywords)) {
+                if (keywords.some(keyword => diseaseLower.includes(keyword))) {
+                    return department;
+                }
+            }
+            return 'General Medicine'; // Default to General Medicine if no specific match
+        }
+
+        function sharePrediction() {
+            const predictionText = document.getElementById('predictionText').innerText;
+            const shareData = {
+                title: 'My Health Prediction',
+                text: predictionText,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .catch(error => console.log('Error sharing:', error));
+            }
+        }
+
+        function shareWhatsApp() {
+            const predictionText = document.getElementById('predictionText').innerText;
+            const text = encodeURIComponent(predictionText);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function shareEmail() {
+            const predictionText = document.getElementById('predictionText').innerText;
+            const subject = encodeURIComponent('My Health Prediction from MediPlus');
+            const body = encodeURIComponent(predictionText);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function bookAppointment(department) {
+            window.location.href = `appointment.html?department=${encodeURIComponent(department)}`;
+        }
+
+        function toggleAnswer(index) {
+            const bubble = document.querySelectorAll(".faq-bubble")[index];
+            const answer = document.getElementById(`answer-${index}`);
+
+            const isVisible = answer.style.display === "block";
+
+            // Reset all first
+            document.querySelectorAll(".faq-answer").forEach(ans => ans.style.display = "none");
+            document.querySelectorAll(".faq-bubble").forEach(b => b.classList.remove("open"));
+
+            // Toggle current
+            if (!isVisible) {
+                answer.style.display = "block";
+                bubble.classList.add("open");
+            }
+        }
+
+        function markdownToPlainText(md) { // Convert Markdown to plain text
+            return md
+                .replace(/```[\s\S]*?```/g, '')
+                .replace(/`([^`]*)`/g, '$1')
+                .replace(/!\[.*?\]\(.*?\)/g, '')
+                .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+                .replace(/(\*\*|__)(.*?)\1/g, '$2')
+                .replace(/(\*|_)(.*?)\1/g, '$2')
+                .replace(/^#{1,6}\s*/gm, '')
+                .replace(/^>\s*/gm, '')
+                .replace(/^[\*\-\+]\s+/gm, '')
+                .replace(/^\d+\.\s+/gm, '')
+                .replace(/^\s*\n/gm, '')
+                .trim();
+        }
+
+        // Function to parse the prediction text and extract sections
+        function parsePredictionText(text) {
+            const sections = {
+                diseases: 'Not clearly identified.',
+                explanation: 'No clear explanation available.',
+                precautions: 'No specific precautions mentioned.',
+                remedies: 'No specific remedies provided.'
+            };
+
+            const matches = [...text.matchAll(/(Possible Diseases|Explanation|Precautions|Remedies):\s*([\s\S]*?)(?=\n[A-Z][a-z]+:|$)/g)];
+
+            matches.forEach(match => {
+                const key = match[1].toLowerCase().replace(/\s+/g, '');
+                const value = markdownToPlainText(match[2].trim());
+                if (key.includes('disease')) sections.diseases = value || sections.diseases;
+                else if (key.includes('explanation')) sections.explanation = value || sections.explanation;
+                else if (key.includes('precaution')) sections.precautions = value || sections.precautions;
+                else if (key.includes('remedie')) sections.remedies = value || sections.remedies;
+            });
+
+            return sections;
+        }
+
+        // Function to submit symptoms and fetch prediction
+        function submitSymptoms() {
+            const symptomsText = document.getElementById('symptoms').value.trim();
+            const errorElement = document.getElementById('symptomsError');
+            const textarea = document.getElementById('symptoms');
+
+            // Reset previous error state
+            errorElement.style.display = 'none';
+            textarea.classList.remove('error');
+
+            // Validate input
+            if (!symptomsText) {
+                errorElement.textContent = 'Please enter your symptoms.';
+                errorElement.style.display = 'block';
+                textarea.classList.add('error');
+                return;
+            }
+
+            if (symptomsText.length < 5) {
+                errorElement.textContent = 'Please provide more detailed symptoms.';
+                errorElement.style.display = 'block';
+                textarea.classList.add('error');
+                return;
+            }
+
+            if (symptomsText.length > 500) {
+                errorElement.textContent = 'Symptoms description is too long. Please keep it concise.';
+                errorElement.style.display = 'block';
+                textarea.classList.add('error');
+                return;
+            }
+
+            document.getElementById('loading').style.display = "block";
+
+            fetch('http://localhost:3000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ symptoms: symptomsText }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loading').style.display = "none";
+
+                    if (data.prediction) {
+                        const parsed = parsePredictionText(data.prediction);
+                        const matchingDepartment = findMatchingDepartment(parsed.diseases);
+
+                        predictionText.innerHTML = `
+                        <div class="prediction-section">
+                            <p><strong>Symptoms Provided:</strong> ${symptomsText}</p>
+                        </div>
+                        
+                        <h3>Possible Disease(s)</h3>
+                        <div class="prediction-section">
+                            <p>${parsed.diseases || 'N/A'}</p>
+                        </div>
+
+                        <h3>Explanation</h3>
+                        <div class="prediction-section">
+                            <p>${parsed.explanation || 'N/A'}</p>
+                        </div>
+
+                        <h3>Precautions</h3>
+                        <div class="prediction-section">
+                            <p>${parsed.precautions || 'N/A'}</p>
+                        </div>
+
+                        <h3>Remedies</h3>
+                        <div class="prediction-section">
+                            <p>${parsed.remedies || 'N/A'}</p>
+                        </div>
+
+                        ${matchingDepartment ? `
+                            <div class="department-match">
+                                <h4>Recommended Department</h4>
+                                <p>Based on your symptoms, we recommend consulting with our ${matchingDepartment} department.</p>
+                                <button class="book-appointment-btn" onclick="bookAppointment('${matchingDepartment}')">
+                                    <i class="fas fa-calendar-plus"></i> Book Appointment with ${matchingDepartment}
+                                </button>
+                            </div>
+                        ` : `
+                            <div class="department-match">
+                                <h4>Medical Consultation Recommended</h4>
+                                <p>Please consult with a healthcare professional for proper diagnosis and treatment.</p>
+                                <button class="book-appointment-btn" onclick="bookAppointment('General')">
+                                    <i class="fas fa-calendar-plus"></i> Book General Consultation
+                                </button>
+                            </div>
+                        `}
+
+                        <div class="prediction-section info">
+                            <ul>
+                                <li>Stay hydrated and get enough rest</li>
+                                <li>Monitor your symptoms for any worsening or new signs</li>
+                                <li>If the condition persists, consult a medical professional</li>
+                                <li>For more information, please consult a healthcare professional</li>
+                            </ul>
+                        </div>
+
+                        <div class="prediction-section warning">
+                            <p><strong>Note:</strong> This is an AI-generated prediction and should not be considered a definitive diagnosis. Always consult with a healthcare professional for proper medical advice.</p>
+                        </div>
+
+                        <div class="share-buttons">
+                            <button class="share-btn whatsapp" onclick="shareWhatsApp()">
+                                <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                            </button>
+                            <button class="share-btn email" onclick="shareEmail()">
+                                <i class="fas fa-envelope"></i> Share via Email
+                            </button>
+                        </div>
+                    `;
+
+                        document.getElementById('predictionModal').style.display = "flex";
+                    } else {
+                        alert(data.error || 'No disease could be identified with the provided symptoms.');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = "none";
+                    console.error('Error during prediction:', error);
+                    alert(`Error while fetching prediction: ${error.message}`);
+                });
+        }
+
+        function closeModal() {
+            document.getElementById('predictionModal').style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('predictionModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 MediPlus – All rights reserved.</p>
+            <p>Designed with ❤️ for better healthcare accessibility.</p>
+            <p>Contact: info@yourclinic.com | Phone: +91-1234567890</p>
+            <p>Address: 1234 Placeholder Street, City, Country</p>
+        </div>
+    </footer>
+    <style>
+        .footer {
+            background-color: #2c3e50;
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            border-top: 1px solid #ddd;
+            margin-top: 40px;
+        }
+
+        .footer-content p {
+            margin: 6px 0;
+        }
+
+        @media (max-width: 600px) {
+            .footer {
+                font-size: 13px;
+                padding: 16px 20px;
+            }
+        }
+    </style>
+</body>
+
+</html>

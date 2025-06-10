@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculties - MediPlus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span:first-child {
+            color: #222;
+        }
+
+        .logo span:last-child {
+            color: #008000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #008000;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .departments {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .department-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .department-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .department-icon {
+            width: 60px;
+            height: 60px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .department-icon i {
+            font-size: 1.8rem;
+            color: #008000;
+        }
+
+        .department-title {
+            flex: 1;
+        }
+
+        .department-title h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .department-title p {
+            color: #666;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .staff-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateX(5px);
+        }
+
+        .staff-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .staff-info h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+
+        .staff-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .services {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .services h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-item {
+            background: #e8f5e9;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-item i {
+            color: #008000;
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .departments {
+                padding: 2rem 1rem;
+            }
+
+            .department-card {
+                padding: 1.5rem;
+            }
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><span>Medi</span><span>Plus</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="doctor_search.html">Find Doctors</a>
+            <a href="appointment.html">Book Appointment</a>
+            <a href="faq.html">Disease Prediction</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Our Medical Faculties</h1>
+        <p>Discover our comprehensive range of medical departments, staffed by experienced professionals dedicated to
+            providing the highest quality healthcare services.</p>
+    </section>
+
+    <div class="departments" id="departments">
+        <!-- Departments will be dynamically loaded here -->
+    </div>
+
+    <footer>
+        <p>&copy; 2025 MediPlus. All rights reserved.</p>
+        <p>Designed with ❤️ for better healthcare accessibility.</p>
+    </footer>
+
+    <script>
+        const departments = [
+            {
+                name: "Cardiology",
+                icon: "fa-heartbeat",
+                description: "Specialized in heart and cardiovascular system care",
+                services: [
+                    "Heart Disease Treatment",
+                    "Cardiac Surgery",
+                    "Heart Failure Management",
+                    "Cardiac Rehabilitation",
+                    "Preventive Cardiology"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Aryan Roy",
+                        role: "Senior Cardiologist",
+                        image: "https://randomuser.me/api/portraits/men/31.jpg",
+                        qualification: "MBBS, MD (Cardiology)",
+                        experience: "12+ Years"
+                    }
+                ]
+            },
+            {
+                name: "Neurology",
+                icon: "fa-brain",
+                description: "Expert care for neurological disorders and conditions",
+                services: [
+                    "Stroke Treatment",
+                    "Epilepsy Management",
+                    "Headache Disorders",
+                    "Neuromuscular Disorders",
+                    "Sleep Disorders"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Meera Das",
+                        role: "Neurologist",
+                        image: "https://randomuser.me/api/portraits/women/45.jpg",
+                        qualification: "MBBS, DM (Neurology)",
+                        experience: "9+ Years"
+                    }
+                ]
+            },
+            {
+                name: "Orthopedics",
+                icon: "fa-bone",
+                description: "Comprehensive care for musculoskeletal system",
+                services: [
+                    "Joint Replacement",
+                    "Sports Injuries",
+                    "Spine Surgery",
+                    "Fracture Care",
+                    "Arthritis Treatment"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Raghav Singh",
+                        role: "Orthopedic Surgeon",
+                        image: "https://randomuser.me/api/portraits/men/44.jpg",
+                        qualification: "MBBS, MS (Ortho)",
+                        experience: "10+ Years"
+                    }
+                ]
+            },
+            {
+                name: "Pediatrics",
+                icon: "fa-baby",
+                description: "Specialized care for infants, children, and adolescents",
+                services: [
+                    "Child Development",
+                    "Vaccination",
+                    "Pediatric Surgery",
+                    "Child Nutrition",
+                    "Adolescent Health"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Ananya Sharma",
+                        role: "Pediatrician",
+                        image: "https://randomuser.me/api/portraits/women/68.jpg",
+                        qualification: "MBBS, DCH",
+                        experience: "8+ Years"
+                    }
+                ]
+            },
+            {
+                name: "Dermatology",
+                icon: "fa-allergies",
+                description: "Expert care for skin, hair, and nail conditions",
+                services: [
+                    "Skin Disease Treatment",
+                    "Cosmetic Dermatology",
+                    "Hair Loss Treatment",
+                    "Skin Cancer Screening",
+                    "Acne Treatment"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Suman Ghosh",
+                        role: "Dermatologist",
+                        image: "https://randomuser.me/api/portraits/women/53.jpg",
+                        qualification: "MBBS, MD (Skin & VD)",
+                        experience: "11+ Years"
+                    }
+                ]
+            },
+            {
+                name: "General Medicine",
+                icon: "fa-stethoscope",
+                description: "Comprehensive primary healthcare for adults",
+                services: [
+                    "General Health Check-ups",
+                    "Chronic Disease Management",
+                    "Preventive Care",
+                    "Health Screenings",
+                    "Vaccinations"
+                ],
+                staff: [
+                    {
+                        name: "Dr. Vikram Patel",
+                        role: "General Practitioner",
+                        image: "https://randomuser.me/api/portraits/men/67.jpg",
+                        qualification: "MBBS, MD (General Medicine)",
+                        experience: "15+ Years"
+                    }
+                ]
+            }
+        ];
+
+        function renderDepartments() {
+            const departmentsContainer = document.getElementById('departments');
+
+            departments.forEach(dept => {
+                const departmentCard = document.createElement('div');
+                departmentCard.className = 'department-card';
+
+                departmentCard.innerHTML = `
+                    <div class="department-header">
+                        <div class="department-icon">
+                            <i class="fas ${dept.icon}"></i>
+                        </div>
+                        <div class="department-title">
+                            <h2>${dept.name}</h2>
+                            <p>${dept.description}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="staff-grid">
+                        ${dept.staff.map(staff => `
+                            <div class="staff-card">
+                                <img src="${staff.image}" alt="${staff.name}" class="staff-image">
+                                <div class="staff-info">
+                                    <h3>${staff.name}</h3>
+                                    <p>${staff.role}</p>
+                                    <p>${staff.qualification}</p>
+                                    <p>Experience: ${staff.experience}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="services">
+                        <h3>Our Services</h3>
+                        <div class="services-list">
+                            ${dept.services.map(service => `
+                                <div class="service-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>${service}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                departmentsContainer.appendChild(departmentCard);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', renderDepartments);
+    </script>
+</body>
+
+</html>

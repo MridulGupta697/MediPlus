@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediPlus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            min-height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 0.8rem 2rem;
+            border-bottom: 1px solid #ccc;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+            gap: 0.5rem;
+        }
+
+        .top-navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .top-navbar .logo span:first-child {
+            color: #222;
+        }
+
+        .top-navbar .logo span:last-child {
+            color: #008000;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.6rem;
+        }
+
+        .auth-links a {
+            margin-left: 1.2rem;
+            color: #006400;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .auth-links a:hover {
+            color: #004d00;
+        }
+
+        #user-section {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sub-navbar {
+            position: sticky;
+            top: 82px;
+            /* Approx height of top-navbar + border */
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            color: #006400;
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #ccc;
+            z-index: 999;
+        }
+
+        .sub-navbar a {
+            margin: 0 2rem;
+            font-weight: 600;
+            color: #006400;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sub-navbar a:hover {
+            color: #228B22;
+            transform: scale(1.05);
+        }
+
+        .sub-navbar a.active {
+            color: #228B22;
+            font-weight: bold;
+        }
+
+
+        .hero-section {
+            display: flex;
+            flex-direction: row;
+            margin-top: 45px;
+            background: linear-gradient(rgba(135, 206, 250, 0.4), rgba(255, 255, 255, 0.4)),
+                url('herobg.png') no-repeat center center;
+            background-size: cover;
+            width: 100%;
+            padding: 2rem 0;
+            flex: 1;
+        }
+
+        .hero-left,
+        .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 500px;
+            color: #333;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #006400;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            padding: 0.8rem 1.5rem;
+            background-color: #006400;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #004d00;
+        }
+
+        .appointment-box {
+            background-color: #ffffff;
+            color: #006400;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 2px solid #006400;
+            transition: 0.3s ease;
+        }
+
+        .appointment-box:hover {
+            background-color: #006400;
+            color: #ffffff;
+        }
+
+        .hero-right img {
+            max-width: 90%;
+            height: auto;
+            object-fit: contain;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .features-section {
+            padding: 4rem 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #006400;
+            margin-bottom: 1rem;
+        }
+
+        .why-choose-section {
+            padding: 4rem 2rem;
+            background-color: white;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-choose-card {
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: transform 0.3s;
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonials-section {
+            padding: 4rem 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #006400;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #006400;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        footer {
+            background-color: #90a8c1;
+            color: #333;
+            padding: 2rem 1rem;
+            font-family: 'Poppins', sans-serif;
+            margin-top: auto;
+        }
+
+        footer .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        footer h3 {
+            color: #006400;
+            margin-bottom: 1rem;
+        }
+
+        footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        footer a {
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #006400;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #121212;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-links a {
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            color: #006400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: #ffffff;
+            background-color: #006400;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .top-navbar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem;
+            }
+
+            .top-navbar .logo {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+
+            .auth-links,
+            #user-section {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .auth-links a,
+            #user-section a,
+            #user-section button {
+                margin: 0.3rem 0.4rem;
+            }
+
+            .sub-navbar {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0.5rem;
+                top: 168px;
+            }
+
+            .sub-navbar a {
+                margin: 0.4rem 0;
+                font-size: 1rem;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                margin-top: 170px;
+            }
+
+            .hero-left,
+            .hero-right {
+                width: 100%;
+                padding: 3rem 2rem;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-right img {
+                max-width: 80%;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .features-grid,
+            .why-choose-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Animation -->
+    <div class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <a href="index.html" class="logo"><span>Medi</span><span>Plus</span></a>
+        <div class="auth-links" id="auth-links">
+            <a href="login.html"><i class="fas fa-sign-in-alt"></i></a>
+            <a href="registration.html"><i class="fas fa-user-plus"></i></a>
+        </div>
+        <div id="user-section" style="text-align: right; padding: 10px 20px;"></div>
+    </nav>
+
+    <!-- Sub Navbar -->
+    <nav class="sub-navbar">
+        <a href="doctor_search.html">Our Doctors</a>
+        <a href="faculties.html">Departments</a>
+        <a href="faq.html">Disease Prediction</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-left">
+            <div class="hero-content">
+                <h1>Your Health, Our Priority</h1>
+                <p>Delivering quality care with compassion and excellence.</p>
+                <a href="appointment.html" class="appointment-box">Book an Appointment</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <img src="heroimg.png" alt="Doctors" />
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>Expert Doctors</h3>
+                <p>Access to highly qualified and experienced medical professionals.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Easy Appointments</h3>
+                <p>Book appointments online with just a few clicks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>24/7 Care</h3>
+                <p>Round-the-clock medical assistance and support.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-notes-medical"></i>
+                </div>
+                <h3>Digital Records</h3>
+                <p>Secure and easy access to your medical history.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section">
+        <div class="why-choose-grid">
+            <div class="why-choose-card">
+                <h3>Quality Healthcare</h3>
+                <p>We provide top-notch medical services with state-of-the-art facilities.</p>
+            </div>
+            <div class="why-choose-card">
+                <h3>Patient-Centric Approach</h3>
+                <p>Your health and comfort are our top priorities.</p>
+            </div>
+            <div class="why-choose-card">
+                <h3>Affordable Care</h3>
+                <p>Quality healthcare services at reasonable prices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The doctors at MediPlus are incredibly professional and caring. They made
+                    my recovery process smooth and comfortable."</p>
+                <p class="testimonial-author">- Sarah Johnson</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The online appointment system is so convenient. I can book my appointments
+                    anytime, anywhere."</p>
+                <p class="testimonial-author">- Michael Brown</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The staff is very friendly and the facilities are top-notch. Highly
+                    recommended!"</p>
+                <p class="testimonial-author">- Emily Davis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>About MediPlus</h3>
+                <p>MediPlus is a web-based platform facilitating seamless management of healthcare services, including
+                    appointments, patient records, and doctor interactions.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="doctor_search.html">Search Doctors</a></li>
+                    <li><a href="faq.html">Disease Prediction</a></li>
+                    <li><a href="appointment.html">Book Appointment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contact Us</h3>
+                <p>Email: support@mediplus.com</p>
+                <p>Phone: +91-12345-67890</p>
+                <p>Address: 123, Health Street, Kolkata</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/mediplus" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/mediplus" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/mediplus" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/mediplus" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://youtube.com/mediplus" target="_blank" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://pinterest.com/mediplus" target="_blank" title="Pinterest">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 MediPlus. All rights reserved.
+            <p>Designed with ❤️ for better healthcare accessibility.</p>
+        </div>
+    </footer>
+
+    <!-- JS for User Section -->
+    <script>
+        const userSection = document.getElementById("user-section");
+        const storedUser = sessionStorage.getItem("loggedInUser");
+
+        if (storedUser && storedUser !== "null") {
+            try {
+                const userObj = JSON.parse(storedUser);
+                const username = userObj.username || userObj.name || "User";
+                userSection.innerHTML = `
+                    <span style="font-weight: bold; font-size: 18px;">Welcome, ${username}!</span>
+                    <button onclick="logout()" style="margin-left: 10px; padding: 6px 12px; border: none; background-color: #e74c3c; color: white; border-radius: 4px; cursor: pointer;">Logout</button>
+                `;
+            } catch (error) {
+                console.error("Invalid session user:", error);
+                sessionStorage.removeItem("loggedInUser");
+                sessionStorage.removeItem("token");
+                location.reload();
+            }
+        } else {
+            userSection.innerHTML = `
+                <a href="login.html" style="margin-right: 10px; padding: 6px 12px; background-color: #4CAF50; color: white; border-radius: 4px; text-decoration: none;">Login</a>
+                <a href="registration.html" style="padding: 6px 12px; background-color: #007BFF; color: white; border-radius: 4px; text-decoration: none;">Register</a>
+            `;
+        }
+
+        function logout() {
+            sessionStorage.removeItem("loggedInUser");
+            sessionStorage.removeItem("token");
+            location.reload();
+        }
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            const loading = document.querySelector('.loading');
+            loading.classList.add('hidden');
+        });
+    </script>
+
+</body>
+
+</html>
