@@ -70,3 +70,5 @@ temp/
 
 # Yarn Integrity file
 .yarn-integrity 
+
+public/ExtraResources.txt
